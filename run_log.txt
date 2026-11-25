@@ -1,0 +1,48 @@
+Train subset: 20000 | Test: 10000 | device: cpu
+
+== Task 1: non-private baseline ==
+  [baseline] epoch 1 test acc 91.37%
+  [baseline] epoch 2 test acc 95.28%
+  [baseline] epoch 3 test acc 97.07%
+Baseline (no DP)   : test accuracy 97.1 %
+
+== Task 2: DP models for target eps = 10, 5, 1 ==
+  [DP eps=10] epoch 1 test acc 91.52% eps 7.34
+  [DP eps=10] epoch 2 test acc 94.04% eps 8.83
+  [DP eps=10] epoch 3 test acc 95.32% eps 9.99
+  [DP eps=5] epoch 1 test acc 91.36% eps 3.81
+  [DP eps=5] epoch 2 test acc 93.84% eps 4.47
+  [DP eps=5] epoch 3 test acc 95.25% eps 5.00
+  [DP eps=1] epoch 1 test acc 90.60% eps 0.65
+  [DP eps=1] epoch 2 test acc 92.97% eps 0.84
+  [DP eps=1] epoch 3 test acc 94.11% eps 1.00
+
+TARGET_EPS   DELTA    CLIP(C)   EPOCHS   TEST_ACC   EPS_SPENT
+-------------------------------------------------------------
+   10.0      1e-05      1.0        3       95.3 %      9.99
+    5.0      1e-05      1.0        3       95.2 %      5.00
+    1.0      1e-05      1.0        3       94.1 %      1.00
+-------------------------------------------------------------
+Accuracy cost of strongest privacy (eps = 1) : -3.0 %
+
+== Task 3: fixed noise_multiplier = 1.1 ==
+  [DP sigma=1.1] epoch 1 test acc 90.60% eps 0.66
+  [DP sigma=1.1] epoch 2 test acc 92.98% eps 0.85
+  [DP sigma=1.1] epoch 3 test acc 94.10% eps 1.01
+EPOCH    EPSILON_SPENT
+---------------------
+  1          0.66
+  2          0.85
+  3          1.01
+---------------------
+
+== Task 4: membership-inference check (mean max-softmax) ==
+MODEL         TRAIN    TEST    GAP
+-----------------------------------
+Baseline      0.977    0.976   0.001
+DP (eps=1)    0.969    0.972   -0.003
+-----------------------------------
+
+== Task 5: plots ==
+Plot saved : accuracy_vs_epsilon.png, epsilon_vs_epoch.png
+Results saved : results.json
